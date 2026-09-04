@@ -126,11 +126,13 @@ A line chart showing how the repeat customer rate moves month over month.
 **Performance of Dashboard**
 ![Performance](images/Performance.png)
 **Implementing Row Level Security**
-![Deep Dive](images/Deep_Dive.png)
+![Row_level_security](images/RLS.png)
 **Row Level Security Applied**
-![CLS](images/CLS.png)
+![RLS](images/Applied_RLS.png)
+**Implementing Column Level Security**
+![CLS](images/Implementing_CLS.png)
 **Column Level Security Applied**
-![Column_Level_Security](images/Column_Level_Security.png)
+![Column_Level_Security](images/CLS.png)
 **App (App_Retail)**
 ![App_retail](images/App_Overview.png)
 ![App_retail](images/App_Performance.png)
