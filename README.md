@@ -112,17 +112,15 @@ A line chart showing how the repeat customer rate moves month over month.
   
 ## 9. Screenshots
 **Workspace (ws_sales_retail)**
-![Workspace](images/workspace_finance.png)
+![Workspace](images/Workspace.png)
 **Data ingesting through pipeline(pl_sales_retail)**
 ![Pipeline](images/Pipeline.png)
-**Data loading to Lakehouse (lh_sales_retail)**
-![Dataflow_Gen2_to_Lakehouse](images/data_loading_into_lakehouse.png)
 **Data in Lakehouse (lh_sales_retail)**
 ![Lakehouse](images/Lakehouse_finance.png)
 **Data in Warehouse(wh_retail)**
-![Warehouse](images/warehouse_finance.png)
+![Warehouse](images/Warehouse.png)
 **Semantic Model (sales_retail_model)**
-![Semantic_Model](images/sales_retail_model.png)
+![Semantic_Model](images/Semantic_Model.png)
 **Overview of Dashboard**
 ![Overview](images/Overview.png)
 **Performance of Dashboard**
@@ -134,4 +132,5 @@ A line chart showing how the repeat customer rate moves month over month.
 **Column Level Security Applied**
 ![Column_Level_Security](images/Column_Level_Security.png)
 **App (App_Retail)**
-![App_retail](images/App_retail.png)
+![App_retail](images/App_Overview.png)
+![App_retail](images/App_Performance.png)
