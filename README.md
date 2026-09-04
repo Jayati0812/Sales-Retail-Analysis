@@ -1,5 +1,4 @@
 # Sales-Margin-Analysis
-# Finance Analysis
 
 ## 1. Project Title
 **Finance Analysis**
@@ -7,7 +6,7 @@
 Built an end-to-end sales retail analysis solution in Microsoft Fabric, ingesting ~1M+ records through a Fabric pipeline to understand Which customers, products, and regions are actually driving our revenue.
 
 ## 2. Short Description
-The Sales Retail Analysis is an analytical report designed to help Priya (from Head of Sales Ops) understand Our sales team and leadership keep asking me the same question in every weekly review: 'Which customers, products, and regions are actually driving our revenue — and which ones are quietly dying?. This dashboard focuses on identifying what is the repeat customer rate over time and revenue drivers. This tool is intended for use by data analysts, the sales department, management, and data-driven strategists who want to understand revenue trends.
+The Sales Retail Analysis is an analytical report designed to help Priya (from Head of Sales Ops) understand Our sales team and leadership keep asking me the same question in every weekly review: 'Which customers, products, and regions are actually driving our revenue — and which ones are quietly dying?. This dashboard focuses on dashboard that shows revenue trends, customer segments (who's valuable, who's at risk), regional performance, and product performance, sliceable by date.. This tool is intended for use by data analysts, the sales department, management, and data-driven strategists who want to understand revenue trends.
 
 ## 3. Tech Stack
 The dashboard was built using the following tools and technologies:
@@ -19,56 +18,59 @@ The dashboard was built using the following tools and technologies:
 - **DAX (Data Analysis Expressions)** – Used for calculated measures, dynamic visuals, and conditional logic.
 - **Power BI Desktop** – Main data visualization platform used for report creation.
 - **OneLake Security** – Implemented column-level and row-level security to ensure the safety of personal data.
-- **App** – Published `App_Sales` for end-user access.
+- **App** – Published `App_Retail` for end-user access.
 - **File Format** – `.pbix` for development and `.png` for dashboard previews.
 
 ## 4. Data Source
 - **Source:** UCI Machine Learning Repository Online Retail II
 - **Link:** [[Sales Retail Dataset](https://archive.ics.uci.edu/dataset/502/online+retail+ii)
 
-Data covers ~1M+ records, including details such as invoice date, invoice, description, customer id, stock code, and quantity for the years 2012–2013.
+Data covers ~1M+ records, including details such as invoice date, invoice, description, customer id, stock code, price, country and quantity, for the years 2009–2011.
 
 ## 5. Workflow
 The end-to-end pipeline was built entirely within Microsoft Fabric:
 
-- **Workspace** – Created `ws_finance` to host all Fabric items for this project.
-- **Notebook** – Created a PySpark notebook and built the pipeline following medallion architecture: **Bronze** (raw invoice data ingested, checked types/nulls/row counts), **Silver** (cleaned, correctly typed, deduplicated), and **Gold** (aggregated and enriched with aging buckets, invoice amount buckets, and customer-level summaries for reporting).
-- **Lakehouse** – Loaded all three layers into `lh_finance` as structured Delta tables, with Bronze, Silver, and Gold sitting inside the same lakehouse.
-- **Security** – Applied column-level security (hiding `InvoiceAmount`) and row-level security (filtering by `countryCode`) directly on `lh_finance` using OneLake security, so protection is enforced consistently across every engine that queries it, not just the report.
-- **Semantic Model** – Built `Finance_semantic`, which automatically inherits the OneLake security rules with no separate configuration needed.
-- **Report** – Created the Finance Analysis report in Power BI, with separate pages for Collections (who's chronically late) and Treasury (cash flow and DSO trends).
-- **App** – Published `App_Finance` for end-user access.
+- **Workspace** – Created `ws_sales_retail` to host all Fabric items for this project.
+- **Notebook** – Created a PySpark notebook and built the pipeline following medallion architecture: **Bronze** (raw invoice data ingested, checked types/nulls/row counts), **Silver** (cleaned, correctly typed, deduplicated), and **Gold** (aggregated and enriched with region, net revenue, and customer-level summaries for reporting).
+- **Lakehouse** – Loaded all three layers into `lh_sales_retail` as structured Delta tables, with Bronze, Silver, and Gold sitting inside the same lakehouse.
+- **Security** – Applied column-level security (hiding `price`) and row-level security (filtering by `region`) directly on `lh_sales_retail` using OneLake security, so protection is enforced consistently across every engine that queries it, not just the report.
+- **Semantic Model** – Built `sales_retail_model`, which automatically inherits the OneLake security rules with no separate configuration needed.
+- **Report** – Created the Sales Retail Analysis report in Power BI, with separate pages for Overview and Performance(repeat customer rate over time).
+- **App** – Published `App_Retail` for end-user access.
 
 ![Workflow](images/workflow.png)
 
 ## 6. Feature Highlights
 
 ### Business Problem
-I used AI as a client, roleplaying as Rakesh from the Finance department, where the company sells on credit to distributors and business clients under standard 30/45/60-day payment terms. Over the last few quarters, the company's Days Sales Outstanding (DSO) had been creeping up — cash that should be in the company's account was sitting with customers longer than it should.
+I used AI as a client, roleplaying as Priya from Head of Sales Ops, Our sales team and leadership keep asking me the same question in every weekly review: 'Which customers, products, and regions are actually driving our revenue — and which ones are quietly dying?
 
 **Key Questions:**
-- How much money are we actually talking about?
-- Which customers have consistently been late?
-- Is there a pattern in why people pay late?
-- Is late payment behavior worsening month over month?
-- When customers are late, how late?
+Are we retaining customers, or is flat revenue masking churn that's being covered up by new customer acquisition?
+Which countries/regions are growing vs. declining?
+Are a small number of wholesale/bulk customers propping up the numbers while our regular customer base shrinks?
+What's our repeat purchase rate, and which products drive repeat business vs. one-off purchases?
+Are we over-relying on a handful of SKUs, and what happens to revenue if one of them has a supply issue?
 
 ### Goal of the Dashboard
-The goal of this dashboard was to create an interactive report that helped the Finance department understand the cause of payment delays relative to the standard 30/45/60-day payment terms. This dashboard helped Rakesh from Finance communicate to leadership and senior management what steps could be taken to reduce and manage DSO by identifying its key drivers.
+The goal of this dashboard was to create an interactive report that helped the Sales department understand Which customers, products, and regions are actually driving our revenue — and which ones are quietly dying. This dashboard helped Priya from Sales communicate to leadership and senior management what steps could be taken to manage revenue and customer repeat rate and help business grow.
 
 ### Key Visuals
 
 **KPIs used in this report:**
-- **Money at Risk:** 53.96K — total invoice amount with late customers
-- **Late Customers:** 83 — count of customers who paid late
-- **Total Customers:** 100 — distinct count of customers
-- **Late Customer % YoY Comparison:** -3.51% — late payment performance improved by 3.51%
-- **Avg Days Late:** 9.68 — average days a customer paid after the invoice date
+- **Net Revenue:** $18.85M — total revenue excluding cancellation
+- **Average order value:** 351.71 
+- **Total Customers:** 5943 — distinct count of customers
+- **total orders:** 53,597 — total orders placed excluding cancelled one
+- **Cancellation Rate:** 0.05% — how many orders were cancalled divided by total order including cancelled one
+- top 10 customer revenue share %- 26.98% - top 10 customers are contributing to total revenue
+- top 10 product revenue share %- 7.69% - top 10 products are contributing to total revenue
+- repeat customer rate - 75.38% - customers ordering more than 1
 
 **Slicers used:**
 - Year (invoice year)
 - Month (invoice month)
-- Country Code
+- Region
 
 **Total Invoices and Customer % Late Trend Over Time:**
 A line-and-column combo chart where columns represent total invoices each month and the line represents late customer % — showing what proportion of invoices were late over time.
