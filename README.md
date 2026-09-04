@@ -41,7 +41,7 @@ The end-to-end pipeline was built entirely within Microsoft Fabric:
 - **Report** – Created the Sales Retail Analysis report in Power BI, with separate pages for Overview and Sales Performance.
 - **App** – Published `App_Retail` for end-user access.
 
-![Workflow](images/workflow.png)
+![Workflow](images/Workflow.png)
 
 ## 6. Feature Highlights
 
@@ -116,7 +116,7 @@ A line chart showing how the repeat customer rate moves month over month.
 **Data ingesting through pipeline(pl_sales_retail)**
 ![Pipeline](images/Pipeline.png)
 **Data in Lakehouse (lh_sales_retail)**
-![Lakehouse](images/Lakehouse_finance.png)
+![Lakehouse](images/Lakehouse.png)
 **Data in Warehouse(wh_retail)**
 ![Warehouse](images/Warehouse.png)
 **Semantic Model (sales_retail_model)**
