@@ -114,6 +114,7 @@ A line chart showing how the repeat customer and guest customer revenue is gener
 ![Workspace](images/Workspace.png)
 **Data ingesting through pipeline(pl_sales_retail)**
 ![Pipeline](images/Pipeline.png)
+![Pipeline](images/Pipeline_running.png)
 **Data in Lakehouse (lh_sales_retail)**
 ![Lakehouse](images/Lakehouse.png)
 **Data in Warehouse(wh_retail)**
